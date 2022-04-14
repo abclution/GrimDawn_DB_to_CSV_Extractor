@@ -25,7 +25,13 @@ ex. X:\Steam\SteamApps\common\Grim Dawn
   - Click ok, and then wait about 10-20 minutes for the files to extract.
 
 This will create a folder structure containing many folders and ".dbr" (Database Record Files) in your working directory.
-These .dbr files are what this project works on.
+These .dbr files are what this project works on, and that concludes the "AssetManager.exe Tutorial"
+
+---
+
+# How To Use GrimDawn_DB_to_CSV_Extractor
+
+
 
 
 
