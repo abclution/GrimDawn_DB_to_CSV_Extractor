@@ -32,7 +32,9 @@ These .dbr files are what this project works on, and that concludes the "AssetMa
 # How To Use GrimDawn_DB_to_CSV_Extractor
 
 
+This program both converts the .dbr records to csv, but additionally grabs the correct description from the multilanguage files to properly enter the data for each item.
 
+Its a very very rough program, but it works.
 
 
 
