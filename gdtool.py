@@ -1,63 +1,86 @@
 
-# CONSTANTS
+# IMPORTS
 import glob
 import csv
 import time
-#import pandas as pd
-INPUT_FOLDER="D:\Python_GD\data\enchants"
+
+
+# CONSTANTS
+INPUT_FOLDER="D:\Python_GD\data\combined"
 OUTPUT_FILE="D:\Python_GD\output.csv"
 OUTPUT_FILE_SORTED="D:\Python_GD\output_sorted.csv"
+
+TRANSLATIONS_PATH="D:\Games\Steam\SteamApps\common\Grim Dawn\settings\text_en" # use your path
+# Translation path is a subfolder in the Grim Dawn path, under settings folder. 
+# The exact folder you wish to use will depend on the language you are trying to
+# extract the database strings for.
+
+
 #######################################
-path = r'D:\Games\Steam\SteamApps\common\Grim Dawn\settings\text_en' # use your path
-all_files = glob.glob(path + "/*.txt")
+
+''' This section loads the translated strings from the Grim Dawn text translations folder
+into a dict to be used later.'''
+# path = r'TRANSLATIONS_PATH' # use your path
+all_files = glob.glob(TRANSLATIONS_PATH + "/*.txt")
+
 tagToNameDict = {}
 
 for filename in all_files:
         with open(filename) as import_data:
             for line in import_data :
                 tag, text = line.partition("=")[::2]
-                # tagToNameDict
-                # myvars[name.strip()] = float(var)
+                
+                # The translation text files have records that look a bit like this:
+                # tagGDX2WeaponBluntB203={^L}Gannar'vakkar's Sting
+                # We split on the "=" getting a tuple ex. ( tagGDX2WeaponBluntB203, =, {^L}Gannar'vakkar's Sting )
+                
                 tagToNameDict[tag.strip()] = str(text)
-# print(tagToNameDict[tagEnchantA01])
-#print(tagToNameDict.keys())
-##for i in tagToNameDict:
-##   if i == "tagEnchantA01" :
-##        print (i, tagToNameDict[i])
-#                break
-#time.sleep(30)            
+
 # https://stackoverflow.com/questions/9161439/parse-key-value-pairs-in-a-text-file/9161531
 #############################################
-# path = r'INPUT_FOLDER' # use your path
-path = r'D:\Python_GD\data\combined' # use your path
-all_files = glob.glob(path + "/*.dbr")
-#all_files = glob.glob(path + "/*.test")
-#headerlist = []
-#datalist = []
+
+
+
+
+#############################################
+
+all_files = glob.glob(INPUT_FOLDER + "/*.dbr")
+
+
 listOfDicts = []
 for filename in all_files:
     headerlist = []
     datalist = []
-    #print(filename)
+
     with open(filename) as import_data:
         for line in import_data :
-            # print(repr(line))
+            
             import_line = line.rstrip(',\n')
-            #print(repr(import_line))
-            #break
             header, data = import_line.split(",")
             headerlist.append(header)
             datalist.append(data)
             
-#            if header == "description" : print(tagToNameDict[data])  # This is where to get the item name from the tag_items.txt
-            if header == "description" : 
-                #print(data)  # This is where to get the item name from the tag_items.txt
+            
+
+            if header == "description" :    #
+                # .dbr files contain lines that look like this
+                # description,tagEnchantA005A,
+                # The description line actually is a tag that is resolved via lookup
+                # in the translations text.
+
                 for i in tagToNameDict:
                     if i == data :
-                        print (i, tagToNameDict[i])
+                        # debug print (i, tagToNameDict[i])
+
                         headerlist.append("aaa_ItemName")
                         datalist.append(tagToNameDict[i])
-            #break
+                        
+                        # We will add a new column (header) for that resolves the .dbr item to its language tag.
+                        # The name of aaa_ItemName is arbitrary, but named with aaa to be one of the first columns
+                        # after the sorting procedure below, as for humans, the item name is the most identifiable.
+
+                        
+            
     thisdict = dict(zip(headerlist,datalist))        
     print(filename)
     print(f"This dict: {len(thisdict)}")
