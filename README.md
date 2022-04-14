@@ -14,11 +14,19 @@ ex. X:\Steam\SteamApps\common\Grim Dawn
 
 
 ## Go to the menu, Tools -> Options
-Working Directory: Where you want the Grim Dawn database extracted to
-Build Directory: Not used for this, pick another folder but we wont use it.
-Tools Directory: The game folder where all the exe including the AssetManager.exe is located.
+ - Working Directory: Where you want the Grim Dawn database extracted to
+ - Build Directory: Not used for this, pick another folder but we wont use it.
+ - Tools Directory: The game folder where all the exe including the AssetManager.exe is located.
 
 ![image](https://user-images.githubusercontent.com/10130237/163331934-00a4b4d4-a22c-4aa1-b1e0-d36a5dadcc6a.png)
+
+## Go to the menu, Tools -> Extract Game Files
+  - Browse for the folder containing the game files, this is usually the same folder as the "Tools Directory"
+  - Click ok, and then wait about 10-20 minutes for the files to extract.
+
+This will create a folder structure containing many folders and ".dbr" (Database Record Files) in your working directory.
+These .dbr files are what this project works on.
+
 
 
 
